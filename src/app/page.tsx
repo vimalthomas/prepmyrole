@@ -5,15 +5,15 @@ import { useRouter } from "next/navigation";
 import { Proficiency } from "@/types";
 
 const PROFICIENCY_OPTIONS: { value: Proficiency; label: string; desc: string; color: string }[] = [
-  { value: "junior",  label: "Junior",          desc: "0–2 yrs · Fundamentals",       color: "from-emerald-500/20 to-emerald-500/5 border-emerald-500/40" },
-  { value: "mid",     label: "Mid-Level",        desc: "2–5 yrs · Independent",        color: "from-blue-500/20 to-blue-500/5 border-blue-500/40" },
-  { value: "senior",  label: "Senior",           desc: "5+ yrs · Project lead",        color: "from-violet-500/20 to-violet-500/5 border-violet-500/40" },
-  { value: "lead",    label: "Lead / Principal", desc: "Strategy · Cross-team impact", color: "from-orange-500/20 to-orange-500/5 border-orange-500/40" },
+  { value: "junior",  label: "Junior",          desc: "Still learning the ropes",      color: "from-emerald-500/20 to-emerald-500/5 border-emerald-500/40" },
+  { value: "mid",     label: "Mid-Level",        desc: "Got a few years under my belt", color: "from-blue-500/20 to-blue-500/5 border-blue-500/40" },
+  { value: "senior",  label: "Senior",           desc: "I lead projects and people",    color: "from-violet-500/20 to-violet-500/5 border-violet-500/40" },
+  { value: "lead",    label: "Lead / Principal", desc: "I shape direction and strategy",color: "from-orange-500/20 to-orange-500/5 border-orange-500/40" },
 ];
 
 const DURATION_OPTIONS = [
-  { value: 5,  label: "5 min",  desc: "Quick check" },
-  { value: 10, label: "10 min", desc: "Full session" },
+  { value: 5,  label: "5 min",  desc: "Quick warmup" },
+  { value: 10, label: "10 min", desc: "Proper practice" },
 ];
 
 export default function HomePage() {
@@ -56,7 +56,7 @@ export default function HomePage() {
         {/* Badge */}
         <div className="mb-6 flex items-center gap-2 px-3 py-1.5 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-400 text-xs font-medium animate-fade-in">
           <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
-          AI-Powered Interview Practice
+          Your personal interview coach
         </div>
 
         {/* Heading */}
@@ -64,7 +64,7 @@ export default function HomePage() {
           {"Prep "}<span className="text-blue-400">My</span>{" Role"}
         </h1>
         <p className="text-slate-400 text-lg text-center mb-10 max-w-md animate-fade-in" style={{ animationDelay: "120ms" }}>
-          Real-time AI interview with speech analysis, adaptive questions, and detailed feedback.
+          Practice out loud. Get honest feedback. Walk into your next interview ready.
         </p>
 
         {/* Card */}
@@ -73,7 +73,7 @@ export default function HomePage() {
           {/* Role */}
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-2">
-              Role / Job Title <span className="text-blue-400">*</span>
+              What role are you preparing for?
             </label>
             <input
               type="text"
@@ -88,12 +88,12 @@ export default function HomePage() {
           {/* Description */}
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-2">
-              Role Context <span className="text-slate-500 font-normal text-xs">(optional — paste a JD for tailored questions)</span>
+              Got a job posting? <span className="text-slate-500 font-normal text-xs">(optional)</span>
             </label>
             <textarea
               value={roleDescription}
               onChange={(e) => setRoleDescription(e.target.value)}
-              placeholder="Paste a job description or describe the company, tech stack, or focus areas…"
+              placeholder="Drop in the job description and we'll tailor the questions to match…"
               rows={3}
               className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-500/60 transition-all resize-none"
             />
@@ -101,7 +101,7 @@ export default function HomePage() {
 
           {/* Proficiency */}
           <div>
-            <label className="block text-sm font-medium text-slate-300 mb-3">Proficiency Level</label>
+            <label className="block text-sm font-medium text-slate-300 mb-3">Where are you in your career?</label>
             <div className="grid grid-cols-2 gap-2">
               {PROFICIENCY_OPTIONS.map((opt) => (
                 <button
@@ -122,7 +122,7 @@ export default function HomePage() {
 
           {/* Duration */}
           <div>
-            <label className="block text-sm font-medium text-slate-300 mb-3">Session Duration</label>
+            <label className="block text-sm font-medium text-slate-300 mb-3">How long do you have?</label>
             <div className="grid grid-cols-2 gap-2">
               {DURATION_OPTIONS.map((opt) => (
                 <button
@@ -158,18 +158,18 @@ export default function HomePage() {
                 Setting up your session…
               </span>
             ) : (
-              "Start Interview →"
+              "Let's get started"
             )}
           </button>
 
           <p className="text-slate-600 text-xs text-center">
-            Microphone + camera required · Audio analyzed · Video not recorded
+            You&apos;ll need your mic on. Camera optional. Nothing is stored.
           </p>
         </div>
 
         {/* Feature pills */}
         <div className="flex flex-wrap justify-center gap-3 mt-8 animate-fade-in" style={{ animationDelay: "300ms" }}>
-          {["Adaptive questions", "Real-time transcription", "Speech analysis", "Detailed scoring"].map((f) => (
+          {["Questions that follow your answers", "Hear yourself think", "Know where you stand", "No judgement, just feedback"].map((f) => (
             <span key={f} className="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-400 text-xs">
               {f}
             </span>
