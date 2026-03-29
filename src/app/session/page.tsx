@@ -291,11 +291,11 @@ function SessionPageInner() {
 
   if (state === "countdown") {
     return (
-      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-slate-400 text-xl mb-4">Starting in</p>
-          <div className="text-8xl font-bold text-white">{countdown || "Go!"}</div>
-          <p className="text-slate-400 mt-4">Make sure your microphone is ready</p>
+      <div className="min-h-screen bg-[#0f1117] flex items-center justify-center">
+        <div className="text-center animate-fade-in">
+          <p className="text-slate-400 text-lg mb-6 uppercase tracking-widest text-xs">Starting in</p>
+          <div className="text-9xl font-bold text-white tabular-nums">{countdown || "Go!"}</div>
+          <p className="text-slate-500 mt-6 text-sm">Make sure your microphone is unmuted</p>
         </div>
       </div>
     );
@@ -303,35 +303,43 @@ function SessionPageInner() {
 
   if (state === "ending") {
     return (
-      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-6" />
-          <p className="text-white text-xl font-medium">Time&apos;s up!</p>
-          <p className="text-slate-400 mt-2">Analyzing your responses...</p>
+      <div className="min-h-screen bg-[#0f1117] flex items-center justify-center">
+        <div className="text-center animate-fade-in">
+          <div className="relative w-16 h-16 mx-auto mb-6">
+            <div className="absolute inset-0 rounded-full border-4 border-blue-500/20" />
+            <div className="absolute inset-0 rounded-full border-4 border-blue-500 border-t-transparent animate-spin" />
+          </div>
+          <p className="text-white text-xl font-semibold">Analyzing your session…</p>
+          <p className="text-slate-400 mt-2 text-sm">This takes about 10 seconds</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-900 flex flex-col">
+    <div className="min-h-screen bg-[#0f1117] flex flex-col">
       {/* Top bar */}
-      <div className="flex items-center justify-between px-6 py-4 border-b border-slate-700">
-        <span className="text-slate-400 text-sm">Question {questionNumber}</span>
-        <div className="flex items-center gap-4">
+      <div className="flex items-center justify-between px-6 py-3 border-b border-slate-800 bg-slate-900/50 backdrop-blur">
+        <div className="flex items-center gap-3">
+          <span className="text-slate-500 text-xs uppercase tracking-wider">Q{questionNumber}</span>
           {isListening && (
-            <span className="flex items-center gap-1.5 text-green-400 text-xs">
-              <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-              Listening
+            <span className="flex items-center gap-1.5 text-emerald-400 text-xs font-medium">
+              <span className="relative flex">
+                <span className="pulse-ring absolute inline-flex h-2 w-2 rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
+              </span>
+              Live
             </span>
           )}
-          <div className={`text-2xl font-mono font-bold ${isLowTime ? "text-red-400" : "text-white"}`}>
+        </div>
+        <div className="flex items-center gap-4">
+          <div className={`text-xl font-mono font-bold tabular-nums ${isLowTime ? "text-red-400" : "text-white"}`}>
             {formatTime(timeLeft)}
           </div>
           <button
             onClick={handleTimeUp}
             disabled={state === "processing"}
-            className="px-3 py-1.5 rounded-lg border border-slate-600 text-slate-400 hover:border-red-500 hover:text-red-400 text-xs font-medium transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+            className="px-3 py-1.5 rounded-lg border border-slate-700 text-slate-500 hover:border-red-500/50 hover:text-red-400 hover:bg-red-500/5 text-xs font-medium transition-all disabled:opacity-30 disabled:cursor-not-allowed"
           >
             End Session
           </button>
@@ -339,32 +347,34 @@ function SessionPageInner() {
       </div>
 
       {/* Timer progress bar */}
-      <div className="h-1 bg-slate-700">
+      <div className="h-0.5 bg-slate-800">
         <div
           className={`h-full transition-all duration-1000 ${isLowTime ? "bg-red-500" : "bg-blue-500"}`}
           style={{ width: `${timePercent}%` }}
         />
       </div>
 
-      <div className="flex flex-1">
+      <div className="flex flex-1 overflow-hidden">
         {/* Main area */}
-        <div className="flex-1 flex flex-col items-center justify-center p-8">
+        <div className="flex-1 flex flex-col items-center justify-center p-8 gap-6">
           {/* Question card */}
-          <div className="w-full max-w-2xl mb-8">
-            <div className="bg-slate-800 rounded-2xl border border-slate-700 p-6">
-              <p className="text-slate-400 text-xs uppercase tracking-wider mb-3">Interviewer</p>
+          <div className="w-full max-w-2xl animate-fade-in">
+            <div className="rounded-2xl border border-slate-700/60 bg-slate-900/80 p-6 shadow-xl">
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-7 h-7 rounded-full bg-blue-500/20 border border-blue-500/40 flex items-center justify-center">
+                  <span className="text-blue-400 text-xs font-bold">AI</span>
+                </div>
+                <span className="text-slate-500 text-xs font-medium uppercase tracking-wider">Interviewer</span>
+              </div>
               {state === "processing" ? (
-                <div className="flex items-center gap-3 text-slate-400">
+                <div className="flex items-center gap-3">
                   <div className="flex gap-1">
                     {[0, 150, 300].map((delay) => (
-                      <span
-                        key={delay}
-                        className="w-2 h-2 bg-slate-400 rounded-full animate-bounce"
-                        style={{ animationDelay: `${delay}ms` }}
-                      />
+                      <span key={delay} className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-bounce"
+                        style={{ animationDelay: `${delay}ms` }} />
                     ))}
                   </div>
-                  <span className="text-sm">Preparing next question...</span>
+                  <span className="text-slate-400 text-sm">Preparing next question…</span>
                 </div>
               ) : (
                 <p className="text-white text-xl leading-relaxed">{currentQuestion}</p>
@@ -372,15 +382,32 @@ function SessionPageInner() {
             </div>
           </div>
 
-          {/* Transcript card */}
+          {/* Answer card */}
           <div className="w-full max-w-2xl">
-            <div className="bg-slate-800/50 rounded-2xl border border-slate-700 p-6 min-h-[120px]">
-              <p className="text-slate-400 text-xs uppercase tracking-wider mb-3">Your Answer</p>
+            <div className={`rounded-2xl border p-6 min-h-[130px] transition-all ${
+              isListening && state === "answering"
+                ? "border-emerald-500/30 bg-emerald-500/5"
+                : "border-slate-700/60 bg-slate-900/40"
+            }`}>
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-7 h-7 rounded-full bg-slate-700 border border-slate-600 flex items-center justify-center">
+                  <span className="text-slate-300 text-xs font-bold">You</span>
+                </div>
+                <span className="text-slate-500 text-xs font-medium uppercase tracking-wider">Your Answer</span>
+                {isListening && state === "answering" && (
+                  <div className="ml-auto flex items-end gap-0.5 h-4">
+                    {[1, 3, 2, 4, 2, 3, 1].map((h, i) => (
+                      <span key={i} className="w-0.5 bg-emerald-400 rounded-full waveform-bar"
+                        style={{ height: `${h * 25}%`, animationDelay: `${i * 100}ms` }} />
+                    ))}
+                  </div>
+                )}
+              </div>
               <p className="text-white text-lg leading-relaxed">
                 {finalTranscript && <span>{finalTranscript} </span>}
                 {liveTranscript && <span className="text-slate-400">{liveTranscript}</span>}
                 {!fullTranscript && state === "answering" && (
-                  <span className="text-slate-500 italic">Start speaking...</span>
+                  <span className="text-slate-600 italic">Start speaking…</span>
                 )}
               </p>
             </div>
@@ -389,19 +416,28 @@ function SessionPageInner() {
               <button
                 onClick={handleSubmitAnswer}
                 disabled={!finalTranscript.trim() || submitting}
-                className="mt-4 w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-500 disabled:opacity-40 disabled:cursor-not-allowed text-white font-medium transition-colors"
+                className="mt-3 w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-500 active:scale-[0.98] disabled:opacity-30 disabled:cursor-not-allowed text-white font-medium transition-all shadow-lg shadow-blue-600/20"
               >
-                {submitting ? "Processing..." : "Next Question →"}
+                {submitting ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    Processing…
+                  </span>
+                ) : "Next Question →"}
               </button>
             )}
           </div>
 
-          {error && <p className="mt-4 text-red-400 text-sm text-center">{error}</p>}
+          {error && (
+            <p className="text-red-400 text-sm flex items-center gap-2">
+              <span>⚠</span> {error}
+            </p>
+          )}
         </div>
 
         {/* Camera panel */}
-        <div className="w-64 p-4 flex flex-col items-center justify-start pt-8 border-l border-slate-700">
-          <div className="w-full aspect-video bg-slate-800 rounded-xl overflow-hidden border border-slate-700 relative">
+        <div className="w-60 p-4 flex flex-col gap-3 items-center justify-start pt-8 border-l border-slate-800">
+          <div className="w-full aspect-video bg-slate-900 rounded-xl overflow-hidden border border-slate-700/60 relative shadow-inner">
             <video
               ref={videoRef}
               autoPlay
@@ -410,12 +446,19 @@ function SessionPageInner() {
               className="w-full h-full object-cover scale-x-[-1]"
             />
             {!isCameraOn && (
-              <div className="absolute inset-0 flex items-center justify-center text-slate-500 text-xs">
-                Camera loading...
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
+                <div className="w-8 h-8 border-2 border-slate-600 border-t-slate-400 rounded-full animate-spin" />
+                <span className="text-slate-500 text-xs">Starting camera…</span>
+              </div>
+            )}
+            {isCameraOn && (
+              <div className="absolute top-2 right-2 flex items-center gap-1 bg-black/50 backdrop-blur px-1.5 py-0.5 rounded-md">
+                <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
+                <span className="text-white text-[10px]">LIVE</span>
               </div>
             )}
           </div>
-          <p className="text-slate-500 text-xs mt-2">Camera on — not analyzed</p>
+          <p className="text-slate-600 text-[11px] text-center">Video on · not recorded or analyzed</p>
         </div>
       </div>
     </div>
