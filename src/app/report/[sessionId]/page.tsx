@@ -1,6 +1,11 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
+
+export const metadata: Metadata = {
+  title: "Your Assessment Report",
+};
 
 function ScoreRing({ score, label, color }: { score: number; label: string; color: string }) {
   const radius = 26;

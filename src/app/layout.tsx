@@ -13,8 +13,16 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "PrepMyRole — AI Interview Practice",
-  description: "AI-powered interview practice with real-time audio feedback and scoring",
+  title: {
+    default: "PrepMyRole",
+    template: "%s · PrepMyRole",
+  },
+  description: "AI-powered interview practice with real-time speech analysis, adaptive questions, and detailed scoring.",
+  openGraph: {
+    title: "PrepMyRole — AI Interview Practice",
+    description: "Practice interviews with an AI that listens, adapts, and scores your performance in real time.",
+    siteName: "PrepMyRole",
+  },
 };
 
 export default function RootLayout({
