@@ -14,14 +14,14 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "PrepMyRole",
-    template: "%s · PrepMyRole",
+    default: "Prep My Role",
+    template: "%s · Prep My Role",
   },
   description: "AI-powered interview practice with real-time speech analysis, adaptive questions, and detailed scoring.",
   openGraph: {
-    title: "PrepMyRole — AI Interview Practice",
+    title: "Prep My Role — AI Interview Practice",
     description: "Practice interviews with an AI that listens, adapts, and scores your performance in real time.",
-    siteName: "PrepMyRole",
+    siteName: "Prep My Role",
   },
 };
 

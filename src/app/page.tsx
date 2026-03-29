@@ -61,7 +61,7 @@ export default function HomePage() {
 
         {/* Heading */}
         <h1 className="text-5xl md:text-6xl font-bold text-white text-center mb-3 animate-fade-in" style={{ animationDelay: "60ms" }}>
-          Prep<span className="text-blue-400">My</span>Role
+          Prep <span className="text-blue-400">My</span> Role
         </h1>
         <p className="text-slate-400 text-lg text-center mb-10 max-w-md animate-fade-in" style={{ animationDelay: "120ms" }}>
           Real-time AI interview with speech analysis, adaptive questions, and detailed feedback.
