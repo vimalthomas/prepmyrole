@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Session {
+  id              String    @id @default(uuid())
+  role            String
+  roleDescription String?
+  proficiency     String
+  durationMinutes Int
+  status          String    @default("pending")
+  createdAt       DateTime  @default(now())
+  completedAt     DateTime?
+
+  questions       Question[]
+  score           Score?
+}
+
+model Question {
+  id           String    @id @default(uuid())
+  sessionId    String
+  sequence     Int
+  questionText String
+  answerText   String?
+  askedAt      DateTime  @default(now())
+  answeredAt   DateTime?
+
+  session      Session   @relation(fields: [sessionId], references: [id])
+}
+
+model Score {
+  id               String   @id @default(uuid())
+  sessionId        String   @unique
+  overallScore     Int
+  contentScore     Int
+  fluencyScore     Int
+  confidenceScore  Int
+  languageScore    Int
+  roleFitScore     Int
+  strengths        String[]
+  opportunities    String[]
+  summary          String
+  detailedFeedback String
+  createdAt        DateTime @default(now())
+
+  session          Session  @relation(fields: [sessionId], references: [id])
+}
